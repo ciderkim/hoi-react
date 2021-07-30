@@ -180,13 +180,10 @@ function App() {
                     <Box m={2} style={{color: "crimson"}}>
                         <em>
                             <div>
-                                Don't worry
+                                Don't worry,
                             </div>
                             <div>
-                                We will never use your image for any other purpose.
-                            </div>
-                            <div>
-                                This service don't even have server
+                                We don't send your images anywhere
                             </div>
                         </em>
                     </Box>
@@ -205,7 +202,10 @@ function App() {
                             { 
                                 imageName
                                 ? <canvas ref={canvasRef} style={{maxWidth: '100%'}}></canvas>
-                                : <ImageIcon style={{ fontSize: 100 }} />
+                                :    <div>
+                                        <ImageIcon style={{ fontSize: 100 }} /> 
+                                        <div>Please select an image</div>
+                                    </div>
                             }
                             {
                                 isImageTooLarge === true &&

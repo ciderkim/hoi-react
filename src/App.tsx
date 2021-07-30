@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import PublishIcon from '@material-ui/icons/Publish';
 import LoopIcon from '@material-ui/icons/Loop';
 import GetAppIcon from '@material-ui/icons/GetApp';
-import ImageIcon from '@material-ui/icons/Image';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -176,7 +177,7 @@ function App() {
             <Header />
             <Grid container direction="column" justify="center">
                 <Box textAlign='center' m={1}>
-                    <CyanButton onClick={selectImage} startIcon={<PublishIcon />}>Select Image</CyanButton>
+                    <LightBlueButton onClick={selectImage} size="large" startIcon={<PublishIcon />}>Select Image</LightBlueButton>
                     <Box m={2} style={{color: "crimson"}}>
                         <em>
                             <div>
@@ -189,10 +190,10 @@ function App() {
                     </Box>
                 </Box>
                 <Box textAlign='center' m={1}>
-                    <LightBlueButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</LightBlueButton>
+                    <GreenButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</GreenButton>
                 </Box>
                 <Box textAlign='center' m={1}>
-                    <GreenButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</GreenButton>
+                    <CyanButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</CyanButton>
                 </Box>
             </Grid>
             <Box my={4}>
@@ -203,7 +204,7 @@ function App() {
                                 imageName
                                 ? <canvas ref={canvasRef} style={{maxWidth: '100%'}}></canvas>
                                 :    <div>
-                                        <ImageIcon style={{ fontSize: 100 }} /> 
+                                        <ImageSearchIcon style={{ fontSize: 100 }} onClick={selectImage}/> 
                                         <div>Please select an image</div>
                                     </div>
                             }

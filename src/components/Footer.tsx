@@ -28,7 +28,10 @@ function Footer() {
         <AppBar position="static" color="primary" className={classes.footer}>
             <Container maxWidth="md">
                 <div className={classes.root}>
-                    <Grid container alignItems='center' style={{height: 60}}>
+                    <Grid container alignItems='center' style={{height: 100}}>
+                        <Grid item xs={12}>
+                            <span>HOI - Hair On Image</span>
+                        </Grid>
                         <Grid item xs>
                             <span>© 2021 sidepun.ch</span>
                         </Grid>

@@ -5,6 +5,7 @@ import {
     Container,
     Grid,
     Button,
+    Hidden,
     Typography,
     Dialog,
     DialogActions,
@@ -49,7 +50,12 @@ function Header() {
                         </Grid>
                         <Grid item xs>
                             <Typography component="h1" variant="h6" >
-                                Hair On Image
+                                <Hidden mdUp>
+                                    HOI
+                                </Hidden>
+                                <Hidden smDown>
+                                    Hair On Image
+                                </Hidden>
                             </Typography>
                         </Grid>
                         <Grid item xs>

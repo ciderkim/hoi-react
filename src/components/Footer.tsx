@@ -4,7 +4,6 @@ import {
     AppBar,
     Container,
     Grid,
-    Typography,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import EmailIcon from '@material-ui/icons/Email';
@@ -29,11 +28,9 @@ function Footer() {
         <AppBar position="static" color="primary" className={classes.footer}>
             <Container maxWidth="md">
                 <div className={classes.root}>
-                    <Grid container alignItems='center' style={{height: 80}}>
+                    <Grid container alignItems='center' style={{height: 60}}>
                         <Grid item xs>
-                            <Typography variant="body1" color="inherit">
-                                © 2021 sidepun.ch
-                            </Typography>
+                            © 2021 sidepun.ch
                         </Grid>
                         <Grid item xs>
                             <a href="https://github.com/kim-sardine/hoi-react" target='_blank' rel="noopener noreferrer" className={classes.anchor}><GitHubIcon /></a>  

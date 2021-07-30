@@ -70,6 +70,7 @@ function getRandomInt(max: number) {
 function App() {
     const [image, setImage] = useState<HTMLImageElement>();
     const [imageName, setImageName] = useState('');
+    const [isImageTooLarge, setIsImageTooLarge] = useState(false);
     const fileRef = useRef<HTMLInputElement>(null);
     const gridRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -105,15 +106,15 @@ function App() {
 
                 const width = e.target.width
                 const height = e.target.height
-                const divWidth = gridRef.current.offsetWidth;
 
-                if (width > divWidth) {
-                    canvasRef.current.width = divWidth * 0.8;
-                    canvasRef.current.height = canvasRef.current.width * height / width;
+                canvasRef.current.width = width;
+                canvasRef.current.height = height;
+
+                if (width > 1800) {
+                    setIsImageTooLarge(true);
                 }
                 else {
-                    canvasRef.current.width = width;
-                    canvasRef.current.height = height;
+                    setIsImageTooLarge(false);
                 }
 
                 draw(ctx, img);
@@ -132,17 +133,18 @@ function App() {
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         ctx.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height);
 
-        const angle = getRandomInt(360); 
+        const angle = getRandomInt(360);
         ctx.beginPath();
         ctx.lineWidth = 0.4;
         
         const startX = Math.floor(canvasRef.current.width / 4 + getRandomInt(canvasRef.current.width) / 2);
         const startY = Math.floor(canvasRef.current.height / 4 + getRandomInt(canvasRef.current.height) / 2);
+        const hairLength = getRandomInt(500) + 300;
         
         ctx.translate(startX, startY)
         ctx.moveTo(0, 0)
         ctx.rotate(angle * Math.PI / 180);
-        ctx.bezierCurveTo(100, 80, 300, 80, 400, 0);
+        ctx.bezierCurveTo(100, 80, 300, 80, hairLength, 0);
         ctx.stroke();
     }
 
@@ -196,13 +198,22 @@ function App() {
                     <GreenButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</GreenButton>
                 </Box>
             </Grid>
-            <Box mt={8}>
+            <Box my={4}>
                 <Grid container direction="column" justify="center">
                     <Box textAlign='center'>
                         <Grid ref={gridRef} item xs={12} sm>
-                            { imageName
-                                ? <canvas ref={canvasRef}></canvas>
+                            { 
+                                imageName
+                                ? <canvas ref={canvasRef} style={{maxWidth: '100%'}}></canvas>
                                 : <ImageIcon style={{ fontSize: 100 }} />
+                            }
+                            {
+                                isImageTooLarge === true &&
+                                    <small>
+                                        <em style={{color: "grey"}}>
+                                            *image may be too large to show the hair.
+                                        </em>
+                                    </small>
                             }
                         </Grid>
                     </Box>

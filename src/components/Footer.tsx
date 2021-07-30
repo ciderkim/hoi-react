@@ -30,7 +30,7 @@ function Footer() {
                 <div className={classes.root}>
                     <Grid container alignItems='center' style={{height: 60}}>
                         <Grid item xs>
-                            © 2021 sidepun.ch
+                            <span>© 2021 sidepun.ch</span>
                         </Grid>
                         <Grid item xs>
                             <a href="https://github.com/kim-sardine/hoi-react" target='_blank' rel="noopener noreferrer" className={classes.anchor}><GitHubIcon /></a>  

@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import {
     AppBar,
     Container,
     Grid,
-} from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import EmailIcon from '@material-ui/icons/Email';
+} from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EmailIcon from '@mui/icons-material/Email';
 
 const useStyles = makeStyles((theme) => ({
     footer: {
@@ -28,12 +28,9 @@ function Footer() {
         <AppBar position="static" color="primary" className={classes.footer}>
             <Container maxWidth="md">
                 <div className={classes.root}>
-                    <Grid container alignItems='center' style={{height: 100}}>
-                        <Grid item xs={12}>
-                            <span>HOI - Hair On Image</span>
-                        </Grid>
+                    <Grid container alignItems='center' style={{height: 60}}>
                         <Grid item xs>
-                            <span>© 2021 sidepun.ch</span>
+                            <span>© 2022 sidepun.ch</span>
                         </Grid>
                         <Grid item xs>
                             <a href="https://github.com/kim-sardine/hoi-react" target='_blank' rel="noopener noreferrer" className={classes.anchor}><GitHubIcon /></a>  

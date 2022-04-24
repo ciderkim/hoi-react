@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import {
     AppBar,
     Container,
@@ -12,7 +12,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     noTransform: {
-        textTransform: 'none',
+        textTransform: 'none!important' as any,
     },
 }));
 
@@ -46,7 +46,7 @@ function Header() {
                 <div className={classes.root}>
                     <Grid container alignItems='center' style={{height: 60}}>
                         <Grid item xs>
-                            <Button color="inherit" className={classes.noTransform} target="_blank" href="https://sidepun.ch/pages/Projects">sidepun.ch</Button>
+                            <Button color="inherit" className={classes.noTransform} target="_blank" href="https://sidepun.ch">Sidepunch</Button>
                         </Grid>
                         <Grid item xs>
                             <Typography component="h1" variant="h6" >

@@ -1,17 +1,25 @@
 import React, { useState, useRef } from 'react';
 
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Grid, Box } from '@material-ui/core';
-import { lightBlue, cyan, green } from '@material-ui/core/colors';
+import { Grid, Box } from '@mui/material';
+import { lightBlue, cyan, green } from '@mui/material/colors';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Button from '@material-ui/core/Button';
-import PublishIcon from '@material-ui/icons/Publish';
-import LoopIcon from '@material-ui/icons/Loop';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import Button, { ButtonProps } from '@mui/material/Button';
 
+import ImageIcon from '@mui/icons-material/Image';
+import LoopIcon from '@mui/icons-material/Loop';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+
+import { styled, Theme, createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+
+declare module '@mui/styles' {
+  interface DefaultTheme extends Theme {}
+}
+
+const defaultTheme = createTheme();
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -19,50 +27,35 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         minHeight: '100vh',
     },
-    selectTemplate: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
     canvas: {
         width: '100%',
         height: '100%',
     },
 }));
 
-const LightBlueButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(lightBlue[600]),
-      backgroundColor: lightBlue[600],
-      '&:hover': {
-        backgroundColor: lightBlue[700],
-      },
-    },
-  })
-)(Button);
+const LightBlueButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText(lightBlue[600]),
+  backgroundColor: lightBlue[600],
+  '&:hover': {
+    backgroundColor: lightBlue[700],
+  },
+}));
 
-const CyanButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(cyan[700]),
-      backgroundColor: cyan[700],
-      '&:hover': {
-        backgroundColor: cyan[900],
-      },
-    },
-  })
-)(Button);
+const CyanButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText(cyan[800]),
+  backgroundColor: cyan[600],
+  '&:hover': {
+    backgroundColor: cyan[700],
+  },
+}));
 
-
-const GreenButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(green[600]),
-      backgroundColor: green[600],
-      '&:hover': {
-        backgroundColor: green[900],
-      },
-    },
-  })
-)(Button);
-
+const GreenButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText(green[600]),
+  backgroundColor: green[600],
+  '&:hover': {
+    backgroundColor: green[900],
+  },
+}));
 
 function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
@@ -111,7 +104,7 @@ function App() {
                 canvasRef.current.width = width;
                 canvasRef.current.height = height;
 
-                if (width > 1800) {
+                if (width > 1600) {
                     setIsImageTooLarge(true);
                 }
                 else {
@@ -167,6 +160,7 @@ function App() {
     }
 
     return (
+      <ThemeProvider theme={defaultTheme}>
         <div className={classes.content}>
             <input type="file" style={{display: "none"}}
                 multiple={false}
@@ -175,9 +169,9 @@ function App() {
                 ref={fileRef}
             />
             <Header />
-            <Grid container direction="column" justify="center">
+            <Grid container direction="column" justifyContent="center">
                 <Box textAlign='center' m={1}>
-                    <LightBlueButton onClick={selectImage} size="large" startIcon={<PublishIcon />}>Select Image</LightBlueButton>
+                    <LightBlueButton onClick={selectImage} size="large" startIcon={<ImageIcon />}>Select Image</LightBlueButton>
                     <Box m={2} style={{color: "crimson"}}>
                         <em>
                             <div>
@@ -186,23 +180,31 @@ function App() {
                             <div>
                                 We don't send your images anywhere
                             </div>
+                            <div>
+                                (It works even without internet)
+                            </div>
                         </em>
                     </Box>
                 </Box>
-                <Box textAlign='center' m={1}>
-                    <GreenButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</GreenButton>
-                </Box>
-                <Box textAlign='center' m={1}>
-                    <CyanButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</CyanButton>
-                </Box>
+                {
+                    imageName !== '' && 
+                    <div>
+                        <Box textAlign='center' m={1}>
+                            <GreenButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</GreenButton>
+                        </Box>
+                        <Box textAlign='center' m={1}>
+                            <CyanButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</CyanButton>
+                        </Box>
+                    </div>
+                }
             </Grid>
             <Box my={4}>
-                <Grid container direction="column" justify="center">
+                <Grid container direction="column" justifyContent="center">
                     <Box textAlign='center'>
                         <Grid ref={gridRef} item xs={12} sm>
                             { 
                                 imageName
-                                ? <canvas ref={canvasRef} style={{maxWidth: '100%'}}></canvas>
+                                ? <canvas ref={canvasRef} style={{maxWidth: '100%', border: '1px solid black'}}></canvas>
                                 :    <div>
                                         <ImageSearchIcon style={{ fontSize: 100 }} onClick={selectImage}/> 
                                         <div>Please select an image</div>
@@ -210,11 +212,13 @@ function App() {
                             }
                             {
                                 isImageTooLarge === true &&
-                                    <small>
-                                        <em style={{color: "grey"}}>
-                                            *image may be too large to show the hair.
-                                        </em>
-                                    </small>
+                                    <div>
+                                      <small>
+                                          <em>
+                                              *image may be too large to draw the hair.
+                                          </em>
+                                      </small>
+                                    </div>
                             }
                         </Grid>
                     </Box>
@@ -222,6 +226,7 @@ function App() {
             </Box>
             <Footer />
         </div>
+      </ThemeProvider>
     );
 }
     

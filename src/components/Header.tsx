@@ -46,7 +46,7 @@ function Header() {
                 <div className={classes.root}>
                     <Grid container alignItems='center' style={{height: 60}}>
                         <Grid item xs>
-                            <Button color="inherit" className={classes.noTransform} target="_blank" href="https://sidepun.ch">Sidepunch</Button>
+                            <Button color="inherit" className={classes.noTransform} target="_blank" href="https://sidepunch.co">SidePunch</Button>
                         </Grid>
                         <Grid item xs>
                             <Typography component="h1" variant="h6" >

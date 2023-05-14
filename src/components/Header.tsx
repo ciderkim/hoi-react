@@ -49,14 +49,9 @@ function Header() {
                             <Button color="inherit" className={classes.noTransform} target="_blank" href="https://sidepunch.co">SidePunch</Button>
                         </Grid>
                         <Grid item xs>
-                            <Typography component="h1" variant="h6" >
-                                <Hidden mdUp>
-                                    HOI
-                                </Hidden>
-                                <Hidden smDown>
-                                    Hair On Image
-                                </Hidden>
-                            </Typography>
+                            <span>
+                                Hair On Image
+                            </span>
                         </Grid>
                         <Grid item xs>
                             <Button color="inherit" className={classes.noTransform} onClick={handleClickOpen}>Example</Button>

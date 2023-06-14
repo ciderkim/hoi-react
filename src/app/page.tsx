@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react';
+import NImage from 'next/image'
 
 import { Grid, Box, Container } from '@mui/material';
 import { lightBlue, cyan, green } from '@mui/material/colors';
@@ -14,8 +15,6 @@ import LoopIcon from '@mui/icons-material/Loop';
 import GetAppIcon from '@mui/icons-material/GetApp';
 
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import { makeStyles } from 'tss-react/mui';
-
 
 const defaultTheme = createTheme({
   palette: {
@@ -28,16 +27,10 @@ const defaultTheme = createTheme({
   },
 });
 
-const useStyles = makeStyles()((theme) => ({
-    content: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
-    canvas: {
-        width: '100%',
-        height: '100%',
-    },
+const Content = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
 }));
 
 const LightBlueButton = styled(Button)<ButtonProps>(({ theme }) => ({
@@ -75,8 +68,6 @@ function App() {
     const fileRef = useRef<HTMLInputElement>(null);
     const gridRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-
-    const { classes } = useStyles();
 
     const selectImage = (e: any) => {
         fileRef?.current?.click();
@@ -167,72 +158,72 @@ function App() {
     }
 
     return (
-      <>
+        <>
         <ThemeProvider theme={defaultTheme}>
-          <Container maxWidth="md">
-          <div className={classes.content}>
-              <input type="file" style={{display: "none"}}
-                  multiple={false}
-                  accept="image/*"
-                  onChange={onUploadImage}
-                  ref={fileRef}
-              />
-              <Header />
-              <Box my={4}>
-                  <Grid>
-                      <Box textAlign='center'>
-                          <Grid ref={gridRef} item xs={12} sm>
-                              { 
-                                  imageName
-                                  ? <canvas ref={canvasRef} style={{maxWidth: '100%', border: '1px solid black'}}></canvas>
-                                  : <img src="/assets/haired_logo_512.png" alt="example" width="50%" />
-                              }
-                              {
-                                  isImageTooLarge === true &&
-                                      <div>
-                                        <small>
-                                            <em>
-                                                *image may be too large to draw the hair.
-                                            </em>
-                                        </small>
-                                      </div>
-                              }
-                              {
-                                  imageName !== '' && 
-                                  <div>
-                                      <Box m={1}>
-                                          <GreenButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</GreenButton>&nbsp;&nbsp;
-                                          <CyanButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</CyanButton>
-                                      </Box>
-                                  </div>
-                              }
-                          </Grid>
-                      </Box>
-                  </Grid>
-              </Box>
-              <Grid container direction="column" justifyContent="center">
-                  <Box textAlign='center' m={1}>
-                      <LightBlueButton onClick={selectImage} size="large" startIcon={<ImageIcon />}>Select Image</LightBlueButton>
-                      <Box m={2} style={{color: "crimson"}}>
-                          <em>
-                              <div>
-                                  Don't worry,
-                              </div>
-                              <div>
-                                  We don't send your images anywhere
-                              </div>
-                              <div>
-                                  (It works even without internet)
-                              </div>
-                          </em>
-                      </Box>
-                  </Box>
-              </Grid>
-              <Footer />
-          </div>
-          </Container>
+            <Container maxWidth="md">
+                <Content>
+                    <input type="file" style={{display: "none"}}
+                        multiple={false}
+                        accept="image/*"
+                        onChange={onUploadImage}
+                        ref={fileRef}
+                    />
+                    <Header />
+                    <Box my={4}>
+                        <Grid>
+                            <Box textAlign='center'>
+                                <Grid ref={gridRef} item xs={12} sm>
+                                    { 
+                                        imageName
+                                        ? <canvas ref={canvasRef} style={{maxWidth: '100%', border: '1px solid black'}}></canvas>
+                                        : <NImage src="/assets/haired_logo_512.png" width={300} height={300} alt="example" />
+                                    }
+                                    {
+                                        isImageTooLarge === true &&
+                                            <div>
+                                                <small>
+                                                    <em>
+                                                        *image may be too large to draw the hair.
+                                                    </em>
+                                                </small>
+                                            </div>
+                                    }
+                                    {
+                                        imageName !== '' && 
+                                        <div>
+                                            <Box m={1}>
+                                                <GreenButton onClick={moveHair} startIcon={<LoopIcon />}>Move Hair</GreenButton>&nbsp;&nbsp;
+                                                <CyanButton onClick={downloadImage} startIcon={<GetAppIcon />}>Download Image</CyanButton>
+                                            </Box>
+                                        </div>
+                                    }
+                                </Grid>
+                            </Box>
+                        </Grid>
+                    </Box>
+                    <Grid container direction="column" justifyContent="center">
+                        <Box textAlign='center' m={1}>
+                            <LightBlueButton onClick={selectImage} size="large" startIcon={<ImageIcon />}>Select Image</LightBlueButton>
+                            <Box m={2} style={{color: "crimson"}}>
+                                <em>
+                                    <div>
+                                        Don&apos;t worry,
+                                    </div>
+                                    <div>
+                                        We don&apos;t send your images anywhere
+                                    </div>
+                                    <div>
+                                        (It works even without internet)
+                                    </div>
+                                </em>
+                            </Box>
+                        </Box>
+                    </Grid>
+                    <Footer />
+                </Content>
+            </Container>
         </ThemeProvider>
-      </>
+        </>
     );
 }
     

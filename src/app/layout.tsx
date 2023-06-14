@@ -11,6 +11,7 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  metadataBase: new URL('https://hoi.sidepunch.co'),
   manifest: 'https://hoi.sidepunch.co/manifest.json',
   openGraph: {
     title: 'H.O.I - Hair On Image',

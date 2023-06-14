@@ -1,14 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 import {
     AppBar,
     Container,
     Grid,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import EmailIcon from '@mui/icons-material/Email';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
     footer: {
         marginTop: 'auto'
     },
@@ -18,25 +17,25 @@ const useStyles = makeStyles((theme) => ({
       },
     anchor: {
         color: 'inherit',
+        textDecoration: 'none',
     },
   }));
 
 function Footer() {
-    const classes = useStyles();
+    const { classes } = useStyles ();
 
     return (
-        <AppBar position="static" color="primary" className={classes.footer}>
+        <AppBar position="static" color="primary" className={classes.footer} elevation={0}>
             <Container maxWidth="md">
                 <div className={classes.root}>
                     <Grid container alignItems='center' style={{height: 60}}>
+                        <Grid item xs> 
+                        </Grid>
                         <Grid item xs>
-                            <span>© 2022 SidePunch</span>
+                            <a href="https://sidepunch.co/" className={classes.anchor} target='_blank'>SidePunch</a>  
                         </Grid>
                         <Grid item xs>
                             <a href="https://github.com/kim-sardine/hoi-react" target='_blank' rel="noopener noreferrer" className={classes.anchor}><GitHubIcon /></a>  
-                        </Grid>
-                        <Grid item xs>
-                            <a href="mailto:kim.sardine@gmail.com" className={classes.anchor}><EmailIcon /></a>  
                         </Grid>
                     </Grid>
                 </div>
